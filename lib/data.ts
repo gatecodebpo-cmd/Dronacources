@@ -2,7 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { dbConnect, plain } from "./db";
 import {
-  Announcement, BlogPost, Category, Exam, ExamGroup, FAQ, Faculty, HeroSlide, Page, Product, SiteSettings, Stat, Test, Testimonial, Topper,
+  Announcement, BlogPost, Category, Exam, ExamGroup, FAQ, Faculty, HeroSlide, Page, Product, SiteSettings, Stat, Test,
 } from "@/models";
 import type { CategoryLite, ExamLite, SettingsLite } from "./types";
 
@@ -109,23 +109,20 @@ export async function getHomeData() {
   await dbConnect();
   const since = new Date(Date.now() - 7 * 864e5);
   const popularIds = await Exam.find({ isActive: true, isPopular: true }).distinct("_id");
-  const [slides, stats, popular, quizzes, products, testimonials, toppers, posts, faqs] = await Promise.all([
+  const [slides, stats, popular, quizzes, products, faqs] = await Promise.all([
     HeroSlide.find({ isActive: true }).sort({ order: 1 }).lean(),
     Stat.find().sort({ order: 1 }).lean(),
     getExams({ $or: [{ showOnHome: true }, { isPopular: true }] }, 8),
     Test.find({ type: "QUIZ", status: "PUBLISHED", exam: { $in: popularIds }, publishDate: { $gte: since, $lte: new Date() } })
       .sort({ publishDate: -1 })
       .limit(8)
-      .select("-questions")
+      .select("title type totalQuestions totalMarks durationMinutes language isFree price publishDate exam")
       .populate("exam", "name slug")
       .lean(),
-    Product.find({ isActive: true }).sort({ createdAt: 1 }).limit(4).lean(),
-    Testimonial.find().sort({ createdAt: 1 }).lean(),
-    Topper.find().sort({ year: -1 }).lean(),
-    BlogPost.find().sort({ publishedAt: -1 }).limit(3).select("-body").lean(),
+    Product.find({ isActive: true }).sort({ createdAt: 1 }).limit(4).select("type title slug thumbnail includes mrp salePrice shelf").lean(),
     FAQ.find().sort({ order: 1 }).limit(8).lean(),
   ]);
-  return plain({ slides, stats, popular, quizzes, products, testimonials, toppers, posts, faqs });
+  return plain({ slides, stats, popular, quizzes, products, faqs });
 }
 
 export async function getCategoryPage(slug: string) {

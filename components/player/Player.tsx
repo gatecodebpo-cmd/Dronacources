@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { AlertTriangle, ArrowLeft, Bookmark, Check, ChevronLeft, ChevronRight, Eraser, Grid3x3, Info, Send } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -233,7 +233,7 @@ export function Player({ test, exam, questions, loggedIn }: { test: T; exam: { n
             {q?.topic && <span className={s.qTopic}>{q.topic}</span>}
           </div>
           <AnimatePresence mode="wait" custom={dir} initial={false}>
-            <motion.div
+            <m.div
               key={q?._id}
               custom={dir}
               initial={{ opacity: 0, x: dir * 40 }}
@@ -248,7 +248,7 @@ export function Player({ test, exam, questions, loggedIn }: { test: T; exam: { n
                 {q?.options.map((o, i) => {
                   const on = chosen === i;
                   return (
-                    <motion.button
+                    <m.button
                       key={i}
                       role="radio"
                       aria-checked={on}
@@ -259,15 +259,15 @@ export function Player({ test, exam, questions, loggedIn }: { test: T; exam: { n
                       <span className={s.letter}>{on ? <Check size={16} strokeWidth={3} /> : LETTERS[i]}</span>
                       <span>{o}</span>
                       {on && (
-                        <motion.span className={s.saved} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }}>
+                        <m.span className={s.saved} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }}>
                           Saved
-                        </motion.span>
+                        </m.span>
                       )}
-                    </motion.button>
+                    </m.button>
                   );
                 })}
               </div>
-            </motion.div>
+            </m.div>
           </AnimatePresence>
           <p className={s.kbd}>
             Tip: press <kbd>1</kbd>–<kbd>4</kbd> to choose, <kbd>←</kbd> <kbd>→</kbd> to move.
@@ -382,7 +382,7 @@ function Timer({ startedAt, totalSec, onExpire }: { startedAt: number; totalSec:
 function Intro({ test, exam, count, per, loggedIn, onStart }: { test: T; exam: { name: string; slug: string } | null; count: number; per: number; loggedIn: boolean; onStart: () => void }) {
   return (
     <div className={s.introWrap}>
-      <motion.div className={s.intro} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
+      <m.div className={s.intro} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}>
         {exam && (
           <Link href={`/exam/${exam.slug}`} className={s.back}>
             <ArrowLeft size={16} /> {exam.name}
@@ -447,7 +447,7 @@ function Intro({ test, exam, count, per, loggedIn, onStart }: { test: T; exam: {
         <Button size="lg" onClick={onStart} block>
           I'm ready, start the test
         </Button>
-      </motion.div>
+      </m.div>
     </div>
   );
 }

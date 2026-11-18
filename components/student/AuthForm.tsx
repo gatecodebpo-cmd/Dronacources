@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Lock, Mail, Phone, UserRound } from "lucide-react";
 import Link from "next/link";
 import { getSession, signIn } from "next-auth/react";
@@ -62,7 +62,7 @@ export function AuthForm({ mode, callbackUrl }: { mode: "login" | "signup"; call
   const otherHref = next ? `${other}?callbackUrl=${encodeURIComponent(next)}` : other;
 
   return (
-    <motion.div className={s.formWrap} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
+    <m.div className={s.formWrap} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
       <div>
         <h1 className={s.h1}>{mode === "login" ? "Welcome back" : "Create your free account"}</h1>
         <p className={s.lead}>
@@ -126,7 +126,7 @@ export function AuthForm({ mode, callbackUrl }: { mode: "login" | "signup"; call
       <p className={s.switch}>
         {mode === "login" ? "New to Drona?" : "Already have an account?"} <Link href={otherHref}>{mode === "login" ? "Create a free account" : "Log in"}</Link>
       </p>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -134,18 +134,17 @@ export function AuthForm({ mode, callbackUrl }: { mode: "login" | "signup"; call
 export function AuthArt() {
   return (
     <div className={s.art} aria-hidden>
-      <div className={s.artGrid} />
       <div className={s.artCopy}>
         <p className={s.artMotto}>Perform · Analyse · Improve</p>
         <h2>Every mock ends with a rank, a review and a plan.</h2>
       </div>
       <div className={s.stack}>
-        <motion.div className={s.card1} initial={{ opacity: 0, y: 30, rotate: -4 }} animate={{ opacity: 1, y: 0, rotate: -4 }} transition={{ delay: 0.2, duration: 0.6 }}>
+        <m.div className={s.card1} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }}>
           <span className={s.cardLabel}>AFCAT Mock Test 3</span>
           <div className={s.scoreRow}>
             <svg viewBox="0 0 80 80" width="80" height="80">
               <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,.12)" strokeWidth="8" />
-              <motion.circle cx="40" cy="40" r="32" fill="none" stroke="#F5A524" strokeWidth="8" strokeLinecap="round" transform="rotate(-90 40 40)" initial={{ pathLength: 0 }} animate={{ pathLength: 0.78 }} transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }} />
+              <m.circle cx="40" cy="40" r="32" fill="none" stroke="#F5A524" strokeWidth="8" strokeLinecap="round" transform="rotate(-90 40 40)" initial={{ pathLength: 0 }} animate={{ pathLength: 0.78 }} transition={{ delay: 0.6, duration: 1.4, ease: [0.22, 1, 0.36, 1] }} />
               <text x="40" y="46" textAnchor="middle" fill="#fff" fontSize="18" fontWeight="700">
                 78%
               </text>
@@ -153,19 +152,15 @@ export function AuthArt() {
             <div className={s.bars}>
               {[82, 64, 90, 55].map((w, i) => (
                 <span key={i}>
-                  <motion.i initial={{ width: 0 }} animate={{ width: `${w}%` }} transition={{ delay: 0.8 + i * 0.12, duration: 0.8 }} />
+                  <m.i initial={{ width: 0 }} animate={{ width: `${w}%` }} transition={{ delay: 0.8 + i * 0.12, duration: 0.8 }} />
                 </span>
               ))}
             </div>
           </div>
-        </motion.div>
-        <motion.div className={s.badge} initial={{ opacity: 0, scale: 0.6 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 1.2, type: "spring", stiffness: 260, damping: 16 }}>
-          <b>AIR 214</b>
-          <span>State rank 12</span>
-        </motion.div>
-        <motion.div className={s.streak} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.5 }}>
-          🔥 6-day quiz streak
-        </motion.div>
+          <p className={s.cardRank}>
+            All-India rank <b>#214</b> · State rank <b>#12</b>
+          </p>
+        </m.div>
       </div>
     </div>
   );

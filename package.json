@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "seed": "tsx --env-file=.env.local scripts/seed.ts"
+    "seed": "tsx --env-file=.env.local scripts/seed.ts",
+    "icons": "tsx scripts/build-icons.tsx",
+    "test": "tsc --noEmit && tsx lib/admin/paths.check.ts",
+    "test:e2e": "node tests/e2e.mjs"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -25,6 +28,7 @@
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.5.29",
     "@types/bcryptjs": "^2.4.6",
     "@types/canvas-confetti": "^1.6.4",
     "@types/node": "^22.0.0",
@@ -32,6 +36,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@types/sanitize-html": "^2.13.0",
+    "playwright-core": "^1.49.1",
     "tsx": "^4.19.0",
     "typescript": "^5.7.0"
   }

@@ -211,3 +211,17 @@
   font-size: var(--fs-sm);
   box-shadow: var(--shadow-lg);
 }
+
+/* calmer art panel: smaller heading, one upright card */
+.artCopy h2 {
+  font-size: var(--fs-xl);
+  max-width: 18ch;
+}
+.cardRank {
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--color-on-dark-muted);
+}
+.cardRank b {
+  color: #fff;
+}

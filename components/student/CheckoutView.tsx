@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ArrowLeft, Check, CheckCircle2, CreditCard, FlaskConical, Lock, ShieldCheck, Tag, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -94,7 +94,7 @@ export function CheckoutView({ item, userName }: { item: CheckoutItem; userName:
 
         <AnimatePresence mode="wait">
           {done ? (
-            <motion.div key="done" className={s.doneCard} initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }}>
+            <m.div key="done" className={s.doneCard} initial={{ opacity: 0, scale: 0.94 }} animate={{ opacity: 1, scale: 1 }}>
               <SuccessMark />
               <h1>Unlocked</h1>
               <p>
@@ -108,9 +108,9 @@ export function CheckoutView({ item, userName }: { item: CheckoutItem; userName:
                   Keep browsing
                 </Link>
               </div>
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div key="form" className={s.grid} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+            <m.div key="form" className={s.grid} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
               <section className={s.card} aria-labelledby="sum">
                 <h1 id="sum" className={s.h1}>
                   Order summary
@@ -186,9 +186,9 @@ export function CheckoutView({ item, userName }: { item: CheckoutItem; userName:
                   <div className={s.total}>
                     <dt>Total</dt>
                     <dd>
-                      <motion.span key={total} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}>
+                      <m.span key={total} initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}>
                         {inr(total)}
-                      </motion.span>
+                      </m.span>
                     </dd>
                   </div>
                 </dl>
@@ -199,7 +199,7 @@ export function CheckoutView({ item, userName }: { item: CheckoutItem; userName:
                   <ShieldCheck size={16} /> Access unlocks instantly. Refunds follow our <Link href="/refund">refund policy</Link>.
                 </p>
               </section>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </div>
@@ -210,8 +210,8 @@ export function CheckoutView({ item, userName }: { item: CheckoutItem; userName:
 function SuccessMark() {
   return (
     <svg width="96" height="96" viewBox="0 0 96 96" aria-hidden>
-      <motion.circle cx="48" cy="48" r="44" fill="none" stroke="var(--color-success)" strokeWidth="5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: "easeOut" }} />
-      <motion.path d="M30 50 L43 62 L67 36" fill="none" stroke="var(--color-success)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.5 }} />
+      <m.circle cx="48" cy="48" r="44" fill="none" stroke="var(--color-success)" strokeWidth="5" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: "easeOut" }} />
+      <m.path d="M30 50 L43 62 L67 36" fill="none" stroke="var(--color-success)" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.4, delay: 0.5 }} />
     </svg>
   );
 }

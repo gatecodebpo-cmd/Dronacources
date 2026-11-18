@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useId, useRef, type ReactNode, type KeyboardEvent } from "react";
 import { cx } from "@/lib/utils";
 import s from "./Tabs.module.css";
@@ -36,7 +36,7 @@ export function Tabs({ tabs, value, onChange, className, variant = "underline" }
             onClick={() => onChange(t.id)}
             onKeyDown={(e) => onKey(e, i)}
           >
-            {active && <motion.span layoutId={layoutId} className={s.indicator} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
+            {active && <m.span layoutId={layoutId} className={s.indicator} transition={{ type: "spring", stiffness: 420, damping: 34 }} />}
             <span className={s.label}>{t.label}</span>
             {t.count !== undefined && <span className={s.count}>{t.count}</span>}
           </button>

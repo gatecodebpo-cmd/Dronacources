@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Megaphone, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -25,7 +25,7 @@ export function AnnouncementBar({ id, text, link }: { id: string; text: string; 
   return (
     <AnimatePresence initial={false}>
       {show && (
-        <motion.div className={s.ann} initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.25 }}>
+        <m.div className={s.ann} initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} transition={{ duration: 0.25 }}>
           <div className={`container ${s.annInner}`}>
             <Megaphone size={16} aria-hidden className={s.annIcon} />
             {link ? (
@@ -39,7 +39,7 @@ export function AnnouncementBar({ id, text, link }: { id: string; text: string; 
               <X size={16} />
             </button>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

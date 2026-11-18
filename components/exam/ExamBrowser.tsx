@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Search, SearchX } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -47,15 +47,15 @@ export function ExamBrowser({ exams, categories }: { exams: ExamLite[]; categori
         ))}
       </div>
       {list.length ? (
-        <motion.div layout className={s.examGrid}>
+        <m.div layout className={s.examGrid}>
           <AnimatePresence initial={false}>
             {list.map((e) => (
-              <motion.div key={e._id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.2 }}>
+              <m.div key={e._id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.2 }}>
                 <ExamCard exam={e} />
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       ) : (
         <EmptyState icon={<SearchX size={28} />} title="No exams match" text={t("common.noResults")} />
       )}

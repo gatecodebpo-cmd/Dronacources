@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { CheckCircle2, Send } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -37,16 +37,16 @@ export function ContactForm({ exams }: { exams: string[] }) {
 
   if (done)
     return (
-      <motion.div className={s.success} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-        <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14 }}>
+      <m.div className={s.success} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+        <m.span initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14 }}>
           <CheckCircle2 size={64} strokeWidth={1.5} />
-        </motion.span>
+        </m.span>
         <h3>Message received</h3>
         <p style={{ color: "var(--color-muted)" }}>We'll call or email you soon.</p>
         <Button variant="outline" onClick={() => setDone(false)}>
           Send another message
         </Button>
-      </motion.div>
+      </m.div>
     );
 
   return (

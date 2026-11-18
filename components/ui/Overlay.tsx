@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { X } from "lucide-react";
 import { useEffect, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -43,8 +43,8 @@ export function Modal({ open, onClose, title, children, size = "md", footer, cla
     <AnimatePresence>
       {open && (
         <div className={s.wrap}>
-          <motion.div className={s.backdrop} onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-          <motion.div
+          <m.div className={s.backdrop} onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+          <m.div
             ref={ref}
             role="dialog"
             aria-modal="true"
@@ -64,7 +64,7 @@ export function Modal({ open, onClose, title, children, size = "md", footer, cla
             )}
             <div className={s.body}>{children}</div>
             {footer && <footer className={s.foot}>{footer}</footer>}
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>,
@@ -80,8 +80,8 @@ export function Drawer({ open, onClose, title, children, side = "right", classNa
     <AnimatePresence>
       {open && (
         <div className={s.wrap}>
-          <motion.div className={s.backdrop} onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
-          <motion.div
+          <m.div className={s.backdrop} onClick={onClose} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} />
+          <m.div
             ref={ref}
             role="dialog"
             aria-modal="true"
@@ -100,7 +100,7 @@ export function Drawer({ open, onClose, title, children, side = "right", classNa
               </header>
             )}
             <div className={s.drawerBody}>{children}</div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>,

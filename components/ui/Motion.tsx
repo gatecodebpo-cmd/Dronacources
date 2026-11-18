@@ -1,26 +1,35 @@
 "use client";
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useSpring, type Variants } from "framer-motion";
-import { useEffect, useRef, useState, type ReactNode, type MouseEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease } },
-};
-
-/** Counts from 0 to `to` the first time it's on screen. */
+/**
+ * Counts from 0 to `to` (ease-out) the first time it scrolls into view.
+ * Plain requestAnimationFrame + IntersectionObserver so it doesn't pull the animation library into first load.
+ */
 export function CountUp({ to, suffix = "", duration = 1.8 }: { to: number; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const reduce = useReducedMotion();
   const [v, setV] = useState(0);
   useEffect(() => {
-    if (!inView) return;
-    if (reduce) return setV(to);
-    const c = animate(0, to, { duration, ease: "easeOut", onUpdate: (n) => setV(Math.round(n)) });
-    return () => c.stop();
-  }, [inView, to, duration, reduce]);
+    const el = ref.current;
+    if (!el) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return setV(to);
+    let raf = 0;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e?.isIntersecting) return;
+        io.disconnect();
+        const start = performance.now();
+        const step = (now: number) => {
+          const p = Math.min(1, (now - start) / (duration * 1000));
+          setV(Math.round(to * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+      },
+      { rootMargin: "-40px" },
+    );
+    io.observe(el);
+    return () => (io.disconnect(), cancelAnimationFrame(raf));
+  }, [to, duration]);
   return (
     <span ref={ref}>
       <span className="sr-only">{`${to.toLocaleString("en-IN")}${suffix}`}</span>
@@ -29,24 +38,5 @@ export function CountUp({ to, suffix = "", duration = 1.8 }: { to: number; suffi
         {suffix}
       </span>
     </span>
-  );
-}
-
-/** Pulls its child toward the cursor (desktop pointers only). */
-export function Magnetic({ children, strength = 0.3 }: { children: ReactNode; strength?: number }) {
-  const x = useSpring(useMotionValue(0), { stiffness: 200, damping: 15 });
-  const y = useSpring(useMotionValue(0), { stiffness: 200, damping: 15 });
-  const reduce = useReducedMotion();
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (reduce || !matchMedia("(pointer: fine)").matches) return;
-    const r = e.currentTarget.getBoundingClientRect();
-    x.set((e.clientX - r.left - r.width / 2) * strength);
-    y.set((e.clientY - r.top - r.height / 2) * strength);
-  };
-  const reset = () => (x.set(0), y.set(0));
-  return (
-    <motion.div style={{ x, y, display: "inline-flex" }} onMouseMove={onMove} onMouseLeave={reset}>
-      {children}
-    </motion.div>
   );
 }

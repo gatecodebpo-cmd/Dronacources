@@ -1,6 +1,9 @@
 "use client";
 import { SessionProvider } from "next-auth/react";
-import { MotionConfig } from "framer-motion";
+import { LazyMotion, MotionConfig } from "framer-motion";
+
+// Animation engine is code-split: components use `m.*` and the features chunk loads after hydration.
+const loadMotionFeatures = () => import("./motionFeatures").then((r) => r.default);
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { translate, type DictKey, type Lang } from "@/lib/i18n";
 import { ToastProvider } from "@/components/ui/Toast";
@@ -68,7 +71,8 @@ export function Providers({ children }: { children: ReactNode }) {
   };
 
   return (
-    <SessionProvider>
+    <SessionProvider refetchOnWindowFocus={false} refetchInterval={0}>
+      <LazyMotion features={loadMotionFeatures}>
       <MotionConfig reducedMotion="user">
         <LangCtx.Provider value={{ lang, setLang }}>
           <ThemeCtx.Provider value={{ theme, toggle }}>
@@ -76,6 +80,7 @@ export function Providers({ children }: { children: ReactNode }) {
           </ThemeCtx.Provider>
         </LangCtx.Provider>
       </MotionConfig>
+      </LazyMotion>
     </SessionProvider>
   );
 }

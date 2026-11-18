@@ -24,7 +24,7 @@ export async function dbConnect() {
   if (cache.conn) return cache.conn;
   const uri = process.env.MONGODB_URI;
   if (!uri) throw new Error("MONGODB_URI is not set. Copy .env.example to .env.local.");
-  cache.promise ??= connectWithDnsFallback(uri, { bufferCommands: false, serverSelectionTimeoutMS: 10000 });
+  cache.promise ??= connectWithDnsFallback(uri, { bufferCommands: false, serverSelectionTimeoutMS: 10000, maxPoolSize: 10 });
   try {
     cache.conn = await cache.promise;
   } catch (e) {

@@ -75,7 +75,18 @@ scripts/seed.ts    demo data (scripts/data/* holds questions, exam write-ups and
 - **Payments are demo only.** Checkout is clearly labelled "Demo mode – no real payment" and marks the order PAID straight away.
 - **Placeholder data.** Phone, address, working hours, YouTube/Instagram links and the director's name are marked `[Demo data – confirm with client]`. Testimonials, toppers and faculty are flagged `isDemo` and show a "Demo data" badge in the admin.
 - **Languages:** all interface labels switch between English and Hindi (`lib/i18n.ts`). Content stays in English, except category names (`nameHi`).
+- **Icons** come from one cached sprite, `public/icons.svg`. After adding an icon name to `lib/icons.tsx`, run `npm run icons` to rebuild it.
+- **Navigation data** (mega menu and exam search) loads from `/api/nav` the first time the menu opens or a search box gets focus, instead of being embedded in every page.
+- **Production build beside a running dev server:** `NEXT_DIST_DIR=.next-prod npm run build`, then `NEXT_DIST_DIR=.next-prod npx next start -p 3001`. Add `ANALYZE=true` to the build for the bundle analyzer.
 - **Uploads** are saved to `public/uploads`. This works locally but **not on Vercel**, whose filesystem is read-only. See the deployment notes below.
+
+---
+
+## Tests
+
+- `npm test`: typecheck plus the admin path-helper self-check.
+- `npm run test:e2e`: 32 browser checks against a running site (pages at phone width, free test → result, login, coupon checkout, activation key, dashboard, role protection, admin edit going live, search, menus, theme toggle, right-click rules). Point it at a server with `BASE_URL=http://localhost:3001 npm run test:e2e`. It uses the installed Microsoft Edge (`PW_CHANNEL=chrome` for Chrome).
+- The e2e run changes demo data (unlocks tests, redeems a key, edits a stat), so run `npm run seed` afterwards.
 
 ---
 

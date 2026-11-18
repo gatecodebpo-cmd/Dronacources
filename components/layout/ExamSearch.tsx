@@ -5,6 +5,7 @@ import { Search } from "lucide-react";
 import { useId, useMemo, useState } from "react";
 import { useLang } from "@/components/providers/Providers";
 import type { NavExam } from "@/lib/data";
+import { useNav } from "@/lib/useNav";
 import { cx } from "@/lib/utils";
 import s from "./ExamSearch.module.css";
 
@@ -25,12 +26,16 @@ export function filterExams(exams: NavExam[], q: string, limit = 8) {
 }
 
 /** Combobox with live autocomplete. `variant="glass"` is the hero version. */
-export function ExamSearch({ exams, variant = "plain", autoFocus, onNavigate }: { exams: NavExam[]; variant?: "plain" | "glass"; autoFocus?: boolean; onNavigate?: () => void }) {
+export function ExamSearch({ exams: given, variant = "plain", autoFocus, onNavigate }: { exams?: NavExam[]; variant?: "plain" | "glass"; autoFocus?: boolean; onNavigate?: () => void }) {
   const { t } = useLang();
   const router = useRouter();
   const [q, setQ] = useState("");
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
+  // the exam index loads on first focus unless the caller already has it
+  const [wanted, setWanted] = useState(false);
+  const lazy = useNav(!given && wanted);
+  const exams = given ?? lazy?.exams ?? [];
   const id = useId();
   const results = useMemo(() => filterExams(exams, q), [exams, q]);
 
@@ -58,7 +63,7 @@ export function ExamSearch({ exams, variant = "plain", autoFocus, onNavigate }: 
           value={q}
           autoFocus={autoFocus}
           onChange={(e) => (setQ(e.target.value), setActive(0), setOpen(true))}
-          onFocus={() => setOpen(true)}
+          onFocus={() => (setOpen(true), setWanted(true))}
           onKeyDown={(e) => {
             if (e.key === "ArrowDown") (e.preventDefault(), setActive((a) => Math.min(a + 1, results.length - 1)));
             if (e.key === "ArrowUp") (e.preventDefault(), setActive((a) => Math.max(a - 1, 0)));
@@ -81,7 +86,9 @@ export function ExamSearch({ exams, variant = "plain", autoFocus, onNavigate }: 
       </form>
       {open && q.trim() && (
         <ul id={id} role="listbox" className={s.list}>
-          {results.length ? (
+          {!exams.length ? (
+            <li className={s.none}>Loading exams…</li>
+          ) : results.length ? (
             results.map((e, i) => (
               <li key={e.slug} id={`${id}-${i}`} role="option" aria-selected={i === active}>
                 <Link href={`/exam/${e.slug}`} onClick={() => (setOpen(false), setQ(""), onNavigate?.())} className={cx(s.item, i === active && s.activeItem)} onMouseEnter={() => setActive(i)}>

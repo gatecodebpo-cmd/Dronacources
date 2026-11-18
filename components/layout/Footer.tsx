@@ -1,12 +1,12 @@
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Send, Youtube, Clock } from "lucide-react";
 import Link from "next/link";
 import { Bi, T } from "@/components/providers/Providers";
 import type { CategoryLite, SettingsLite } from "@/lib/types";
 import { LangToggle, NewsletterForm } from "./SiteChrome";
 import { Logo } from "./Logo";
+import { SvgIcon } from "@/lib/icons";
 import s from "./Footer.module.css";
 
-const SOCIAL = { facebook: Facebook, instagram: Instagram, youtube: Youtube, telegram: Send, linkedin: Linkedin } as const;
+const SOCIAL = { facebook: "Facebook", instagram: "Instagram", youtube: "Youtube", telegram: "Send", linkedin: "Linkedin" } as const;
 const isReal = (v?: string) => !!v && !v.includes("[");
 
 export function Footer({ settings, categories }: { settings: SettingsLite; categories: CategoryLite[] }) {
@@ -24,11 +24,11 @@ export function Footer({ settings, categories }: { settings: SettingsLite; categ
           {socials.length > 0 && (
             <ul className={s.socials} role="list">
               {socials.map(([k, v]) => {
-                const I = SOCIAL[k as keyof typeof SOCIAL];
+                const icon = SOCIAL[k as keyof typeof SOCIAL];
                 return (
                   <li key={k}>
                     <a href={v} target="_blank" rel="noopener noreferrer" aria-label={`Drona on ${k}`}>
-                      <I size={18} />
+                      <SvgIcon name={icon} size={18} />
                     </a>
                   </li>
                 );
@@ -83,16 +83,16 @@ export function Footer({ settings, categories }: { settings: SettingsLite; categ
           </h3>
           <ul role="list" className={s.contact}>
             {settings.email && (
-              <li><Mail size={17} /><a href={`mailto:${settings.email}`}>{settings.email}</a></li>
+              <li><SvgIcon name="Mail" size={17} /><a href={`mailto:${settings.email}`}>{settings.email}</a></li>
             )}
             {settings.phone && (
-              <li><Phone size={17} /><span>{settings.phone}</span></li>
+              <li><SvgIcon name="Phone" size={17} /><span>{settings.phone}</span></li>
             )}
             {settings.address && (
-              <li><MapPin size={17} /><span>{settings.address}</span></li>
+              <li><SvgIcon name="MapPin" size={17} /><span>{settings.address}</span></li>
             )}
             {settings.workingHours && (
-              <li><Clock size={17} /><span>{settings.workingHours}</span></li>
+              <li><SvgIcon name="Clock" size={17} /><span>{settings.workingHours}</span></li>
             )}
           </ul>
           <NewsletterForm />

@@ -1,15 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight, CalendarDays, Check, CheckCircle2, Clock, FileQuestion, Flame, Languages, Lock, Medal, Quote, RotateCcw, Star, Trophy,
-} from "lucide-react";
 import type { ReactNode } from "react";
 import { Bi, T } from "@/components/providers/Providers";
 import { Badge, Chip } from "@/components/ui/Badge";
 import { buttonClass } from "@/components/ui/Button";
 import { Avatar, IconBox } from "@/components/ui/Misc";
 import { CountUp } from "@/components/ui/Motion";
-import { Icon } from "@/lib/icons";
+import { Icon, SvgIcon } from "@/lib/icons";
 import type { CategoryLite, ExamLite, PostLite, ProductLite, StatLite, TestLite, TestState, TestimonialLite, TopperLite } from "@/lib/types";
 import { cx, fmtDate, inr, pctOff, TEST_TYPE_LABEL } from "@/lib/utils";
 import { QuizCountdown } from "./QuizCountdown";
@@ -50,7 +47,7 @@ export function ExamCard({ exam }: { exam: ExamLite }) {
           <strong>{exam.testCount ?? 0}</strong> <T k="common.tests" /> · <strong>{exam.quizCount ?? 0}</strong> <T k="common.quizzes" />
         </p>
         <span className={s.arrow} aria-hidden>
-          <ArrowRight size={18} />
+          <SvgIcon name="ArrowRight" size={18} />
         </span>
       </div>
       <span className={s.underline} aria-hidden />
@@ -94,29 +91,29 @@ export function TestCard({ test, state, onUnlock }: { test: TestLite; state?: Te
       <div className={cx(s.row, s.between)}>
         <Badge tone="navy">{TEST_TYPE_LABEL[test.type] ?? test.type}</Badge>
         {attempted ? (
-          <Badge tone="info" icon={<CheckCircle2 />}>
+          <Badge tone="info" icon={<SvgIcon name="CheckCircle2"  />}>
             <T k="common.attempted" />
           </Badge>
         ) : open ? (
           <Badge tone="success">{test.isFree ? <T k="common.free" /> : "Unlocked"}</Badge>
         ) : (
-          <Badge tone="gold" icon={<Lock />}>
+          <Badge tone="gold" icon={<SvgIcon name="Lock"  />}>
             <T k="common.locked" />
           </Badge>
         )}
       </div>
       <h3 className={s.title}>{test.title}</h3>
       <div className={s.chips}>
-        <Chip icon={<FileQuestion />}>
+        <Chip icon={<SvgIcon name="FileQuestion"  />}>
           {test.totalQuestions} <T k="common.questions" />
         </Chip>
-        <Chip icon={<Trophy />}>
+        <Chip icon={<SvgIcon name="Trophy"  />}>
           {test.totalMarks} <T k="common.marks" />
         </Chip>
-        <Chip icon={<Clock />}>
+        <Chip icon={<SvgIcon name="Clock"  />}>
           {test.durationMinutes} <T k="common.minutes" />
         </Chip>
-        <Chip icon={<Languages />}>{test.language}</Chip>
+        <Chip icon={<SvgIcon name="Languages"  />}>{test.language}</Chip>
       </div>
       {attempted && state?.bestPct !== undefined && (
         <div>
@@ -137,7 +134,7 @@ export function TestCard({ test, state, onUnlock }: { test: TestLite; state?: Te
                 <T k="common.viewResult" />
               </Link>
               <Link href={`/test/${test._id}`} className={buttonClass({ variant: "outline", size: "sm" })}>
-                <RotateCcw size={15} /> <T k="common.reattempt" />
+                <SvgIcon name="RotateCcw" size={15} /> <T k="common.reattempt" />
               </Link>
             </>
           ) : (
@@ -150,11 +147,11 @@ export function TestCard({ test, state, onUnlock }: { test: TestLite; state?: Te
             <span className={s.lockNote}>Includes solutions & rank</span>
             {onUnlock ? (
               <button onClick={onUnlock} className={buttonClass({ variant: "outline", size: "sm" })}>
-                <Lock size={15} /> <T k="common.unlock" /> {inr(test.price)}
+                <SvgIcon name="Lock" size={15} /> <T k="common.unlock" /> {inr(test.price)}
               </button>
             ) : (
               <Link href={`/checkout?test=${test._id}`} className={buttonClass({ variant: "outline", size: "sm" })}>
-                <Lock size={15} /> <T k="common.unlock" /> {inr(test.price)}
+                <SvgIcon name="Lock" size={15} /> <T k="common.unlock" /> {inr(test.price)}
               </Link>
             )}
           </>
@@ -176,11 +173,11 @@ export function QuizCard({ test, examName, streak }: { test: TestLite; examName?
         <p className={s.muted}>{examName ?? "Daily quiz"}</p>
         {streak ? (
           <span className={s.flame}>
-            <Flame size={16} /> {streak} <T k="common.dayStreak" />
+            <SvgIcon name="Flame" size={16} /> {streak} <T k="common.dayStreak" />
           </span>
         ) : (
           <span className={s.flame}>
-            <Flame size={16} /> Streak
+            <SvgIcon name="Flame" size={16} /> Streak
           </span>
         )}
       </div>
@@ -190,8 +187,8 @@ export function QuizCard({ test, examName, streak }: { test: TestLite; examName?
         </Link>
       </h3>
       <div className={s.chips}>
-        <Chip icon={<FileQuestion />}>{test.totalQuestions} Q</Chip>
-        <Chip icon={<Clock />}>{test.durationMinutes} min</Chip>
+        <Chip icon={<SvgIcon name="FileQuestion"  />}>{test.totalQuestions} Q</Chip>
+        <Chip icon={<SvgIcon name="Clock"  />}>{test.durationMinutes} min</Chip>
         <Badge tone="success">
           <T k="common.free" />
         </Badge>
@@ -201,7 +198,7 @@ export function QuizCard({ test, examName, streak }: { test: TestLite; examName?
           <T k="common.newQuizIn" /> <span className={s.countdown}><QuizCountdown /></span>
         </span>
         <span className={s.arrow} aria-hidden>
-          <ArrowRight size={18} />
+          <SvgIcon name="ArrowRight" size={18} />
         </span>
       </div>
     </article>
@@ -234,7 +231,7 @@ export function ProductCard({ product }: { product: ProductLite }) {
           <ul className={s.includes}>
             {product.includes.map((i) => (
               <li key={i.label}>
-                <Check size={16} strokeWidth={2.5} />
+                <SvgIcon name="Check" size={16} strokeWidth={2.5} />
                 {i.count} {i.label}
               </li>
             ))}
@@ -275,10 +272,10 @@ export function StatCard({ stat }: { stat: StatLite }) {
 export function TestimonialCard({ t }: { t: TestimonialLite }) {
   return (
     <figure className={cx(s.card, s.testimonial)} style={{ margin: 0 }}>
-      <Quote className={s.quoteMark} size={40} aria-hidden />
+      <SvgIcon name="Quote" className={s.quoteMark} size={40} aria-hidden />
       <div className={s.stars} role="img" aria-label={`${t.rating} out of 5 stars`}>
         {Array.from({ length: 5 }, (_, i) => (
-          <Star key={i} size={16} fill={i < t.rating ? "currentColor" : "none"} aria-hidden />
+          <SvgIcon name="Star" key={i} size={16} fill={i < t.rating ? "currentColor" : "none"} aria-hidden />
         ))}
       </div>
       <blockquote>“{t.quote}”</blockquote>
@@ -307,7 +304,7 @@ export function TopperCard({ t }: { t: TopperLite }) {
           {t.exam} · {t.year}
         </p>
       </div>
-      <Badge tone="gold" icon={<Medal />}>
+      <Badge tone="gold" icon={<SvgIcon name="Medal"  />}>
         <span className={s.rankBig} style={{ fontSize: "inherit" }}>{t.rank}</span>
       </Badge>
     </article>
@@ -333,10 +330,10 @@ export function PostCard({ post }: { post: PostLite }) {
         {post.excerpt && <p className={s.muted}>{post.excerpt}</p>}
         <div className={s.postMeta}>
           <span>
-            <CalendarDays size={14} /> {fmtDate(post.publishedAt)}
+            <SvgIcon name="CalendarDays" size={14} /> {fmtDate(post.publishedAt)}
           </span>
           <span>
-            <Clock size={14} /> {post.readMinutes ?? 4} <T k="common.minRead" />
+            <SvgIcon name="Clock" size={14} /> {post.readMinutes ?? 4} <T k="common.minRead" />
           </span>
         </div>
       </div>

@@ -1,5 +1,5 @@
 "use client";
-import { animate, motion, useReducedMotion } from "framer-motion";
+import { animate, m, useReducedMotion } from "framer-motion";
 import { Award, CheckCircle2, Clock, MapPin, RotateCcw, Target, XCircle, MinusCircle, LayoutDashboard } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -103,7 +103,7 @@ export function ResultView({ attempt, test, exam, review, topics }: { attempt: A
                       </span>
                     </div>
                     <div className={s.track}>
-                      <motion.span
+                      <m.span
                         className={cx(s.fill, p >= 70 ? s.fillGood : p >= 40 ? s.fillMid : s.fillLow)}
                         initial={{ width: 0 }}
                         whileInView={{ width: `${p}%` }}

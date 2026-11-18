@@ -459,3 +459,18 @@
   background: rgba(245, 165, 36, 0.2) !important;
   color: #ffd38a !important;
 }
+
+/* calmer exam hero: no glass panel, quieter icon tile */
+.featureBox {
+  background: transparent;
+  backdrop-filter: none;
+  border-color: rgba(255, 255, 255, 0.18);
+}
+.examIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-accent);
+  box-shadow: none;
+}

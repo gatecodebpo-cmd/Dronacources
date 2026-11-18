@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Plus } from "lucide-react";
 import { useId, useState } from "react";
 import s from "./Accordion.module.css";
@@ -29,7 +29,7 @@ export function Accordion({ items, defaultOpen = 0 }: { items: { q: string; a: s
             </h3>
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   id={`${base}-${i}`}
                   role="region"
                   aria-labelledby={`${base}-t-${i}`}
@@ -40,7 +40,7 @@ export function Accordion({ items, defaultOpen = 0 }: { items: { q: string; a: s
                   className={s.panel}
                 >
                   <p>{it.a}</p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
           </div>

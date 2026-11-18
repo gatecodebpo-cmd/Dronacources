@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, m, useScroll, useSpring } from "framer-motion";
 import { CalendarDays, Clock, Link2, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,7 +45,7 @@ export function PostBrowser({ posts }: { posts: PostLite[] }) {
         )}
       </div>
       <AnimatePresence mode="wait">
-        <motion.div key={type + cat} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
+        <m.div key={type + cat} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
           {!first ? (
             <EmptyState title="No posts yet" text="New current affairs digests are published every week." />
           ) : (
@@ -75,7 +75,7 @@ export function PostBrowser({ posts }: { posts: PostLite[] }) {
               </div>
             </>
           )}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );
@@ -84,7 +84,7 @@ export function PostBrowser({ posts }: { posts: PostLite[] }) {
 export function ReadingProgress() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
-  return <motion.div className={s.progress} style={{ scaleX }} aria-hidden />;
+  return <m.div className={s.progress} style={{ scaleX }} aria-hidden />;
 }
 
 export function ShareButtons({ title }: { title: string }) {

@@ -31,6 +31,7 @@ export const guardStaff = () => requireRole(STAFF).then(async (u) => (await dbCo
 
 export function refresh() {
   revalidatePath("/", "layout");
+  revalidatePath("/api/nav");
 }
 
 /** Wrap a route handler so thrown HttpErrors / Mongoose errors become JSON responses. */

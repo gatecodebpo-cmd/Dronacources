@@ -11,3 +11,4 @@ next-env.d.ts
 /dronacourses.com/
 /.claude/skills/frontend-design/reference/
 /.claude/settings.local.json
+/.next-prod/

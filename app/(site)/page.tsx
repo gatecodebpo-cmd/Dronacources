@@ -1,4 +1,3 @@
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Hero } from "@/components/home/Hero";
@@ -10,8 +9,8 @@ import { Carousel } from "@/components/ui/Carousel";
 import { CountUp } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/Misc";
 import { Reveal, Stagger } from "@/components/ui/Reveal";
-import { getCategories, getHomeData, getNavData, getSettings } from "@/lib/data";
-import { Icon } from "@/lib/icons";
+import { getCategories, getHomeData, getSettings } from "@/lib/data";
+import { Icon, SvgIcon } from "@/lib/icons";
 import { faqLd, JsonLd, orgLd } from "@/lib/seo";
 import s from "@/components/home/Home.module.css";
 
@@ -24,7 +23,7 @@ const STEPS = [
 ];
 
 export default async function HomePage() {
-  const [settings, nav, cats, d] = await Promise.all([getSettings(), getNavData(), getCategories(), getHomeData()]);
+  const [settings, cats, d] = await Promise.all([getSettings(), getCategories(), getHomeData()]);
   const faqs = d.faqs.map((f: any) => ({ q: f.question, a: f.answer }));
   const services = settings.services ?? [];
   const featured = services.filter((x) => x.featured);
@@ -38,7 +37,7 @@ export default async function HomePage() {
       <JsonLd data={orgLd(settings)} />
       {faqs.length > 0 && <JsonLd data={faqLd(faqs)} />}
 
-      <Hero slide={d.slides[0]} tagline={settings.tagline} motto={settings.motto} exams={nav.exams} />
+      <Hero slide={d.slides[0]} tagline={settings.tagline} motto={settings.motto} />
 
       {/* 1. what Drona offers */}
       {services.length > 0 && (
@@ -52,7 +51,7 @@ export default async function HomePage() {
                     <Icon name={x.icon} size={26} />
                   </span>
                   <h3>
-                    {x.title} <ArrowRight size={18} className={s.offerArrow} />
+                    {x.title} <SvgIcon name="ArrowRight" size={18} className={s.offerArrow} />
                   </h3>
                   {x.text && <p>{x.text}</p>}
                 </Link>
@@ -84,7 +83,7 @@ export default async function HomePage() {
             sub={<T k="home.chooseExamSub" />}
             action={
               <Link href="/exams" className={s.linkMore}>
-                <T k="nav.allExams" /> <ArrowRight size={18} />
+                <T k="nav.allExams" /> <SvgIcon name="ArrowRight" size={18} />
               </Link>
             }
           />
@@ -134,7 +133,7 @@ export default async function HomePage() {
               sub="Latest editions of books, notes and video courses."
               action={
                 <Link href="/e-library" className={s.linkMore}>
-                  Visit the E-Library <ArrowRight size={18} />
+                  Visit the E-Library <SvgIcon name="ArrowRight" size={18} />
                 </Link>
               }
             />
@@ -206,7 +205,7 @@ export default async function HomePage() {
                 ))}
               </div>
               <Link href="/about" className={buttonClass({ variant: "outline" })}>
-                About Drona <ArrowRight size={18} />
+                About Drona <SvgIcon name="ArrowRight" size={18} />
               </Link>
             </Reveal>
           </div>

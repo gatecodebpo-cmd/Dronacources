@@ -1,15 +1,17 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
-import { ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, LogOut, Menu, UserRound } from "lucide-react";
+import { AnimatePresence, m } from "framer-motion";
+import { ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, LogOut, Menu, Moon, Sun, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { ActivationKeyButton } from "@/components/flows/ActivationKey";
-import { Bi, useLang } from "@/components/providers/Providers";
+import { Bi, useLang, useTheme } from "@/components/providers/Providers";
 import { buttonClass } from "@/components/ui/Button";
 import { Drawer } from "@/components/ui/Overlay";
 import type { NavData } from "@/lib/data";
+import { useNav } from "@/lib/useNav";
+import { Skeleton } from "@/components/ui/Misc";
 import { Icon } from "@/lib/icons";
 import { cx } from "@/lib/utils";
 import { ExamSearch } from "./ExamSearch";
@@ -23,13 +25,15 @@ const LINKS = [
   { href: "/contact", k: "nav.contact" },
 ] as const;
 
-export function Header({ nav, tagline, logo }: { nav: NavData; tagline: string; logo?: string }) {
+export function Header({ tagline, logo }: { tagline: string; logo?: string }) {
   const { t } = useLang();
+  const { theme, toggle } = useTheme();
   const { data: session } = useSession();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mega, setMega] = useState(false);
   const [drawer, setDrawer] = useState(false);
+  const nav = useNav(mega || drawer);
 
   useEffect(() => {
     const on = () => setScrolled(window.scrollY > 12);
@@ -59,6 +63,9 @@ export function Header({ nav, tagline, logo }: { nav: NavData; tagline: string; 
         </nav>
 
         <div className={s.actions}>
+          <button className={s.iconBtn} onClick={toggle} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light mode" : "Dark mode"}>
+            {theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}
+          </button>
           {session ? (
             <Link href={dashHref} className={cx(buttonClass({ variant: "outline", size: "sm" }), s.desktopOnly)}>
               <LayoutDashboard size={16} /> {t("nav.dashboard")}
@@ -77,10 +84,10 @@ export function Header({ nav, tagline, logo }: { nav: NavData; tagline: string; 
         </div>
       </div>
 
-      <AnimatePresence>{mega && <MegaPanel nav={nav} onClose={() => setMega(false)} />}</AnimatePresence>
+      <AnimatePresence>{mega && (nav ? <MegaPanel key="mega" nav={nav} onClose={() => setMega(false)} /> : <div key="mega-loading" className={s.mega}><div className={cx("container", s.megaInner)} aria-busy="true" aria-label="Loading exams"><Skeleton h={48} w="min(560px, 100%)" r={12} /><div style={{ display: "grid", gap: 10, marginTop: 24 }}>{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} h={18} w={260} />)}</div></div></div>)}</AnimatePresence>
 
       <Drawer open={drawer} onClose={() => setDrawer(false)} side="right" title={<Logo tagline={tagline} logo={logo} />} className={s.drawer}>
-        <MobileMenu nav={nav} session={!!session} dashHref={dashHref} onNavigate={() => setDrawer(false)} />
+        {nav ? <MobileMenu nav={nav} session={!!session} dashHref={dashHref} onNavigate={() => setDrawer(false)} /> : <div style={{ display: "grid", gap: 12 }} aria-busy="true" aria-label="Loading menu">{Array.from({ length: 8 }, (_, i) => <Skeleton key={i} h={40} r={10} />)}</div>}
       </Drawer>
     </header>
   );
@@ -102,7 +109,7 @@ function MegaPanel({ nav, onClose }: { nav: NavData; onClose: () => void }) {
   }, [onClose]);
 
   return (
-    <motion.div
+    <m.div
       id="mega"
       ref={ref}
       className={s.mega}
@@ -166,7 +173,7 @@ function MegaPanel({ nav, onClose }: { nav: NavData; onClose: () => void }) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -183,12 +190,12 @@ function MobileMenu({ nav, session, dashHref, onNavigate }: { nav: NavData; sess
       <ExamSearch exams={nav.exams} onNavigate={onNavigate} />
       <AnimatePresence mode="wait" initial={false}>
         {!cat ? (
-          <motion.ul key="l1" className={s.mList} variants={listV} initial="hidden" animate="show" exit={{ opacity: 0, x: -30 }}>
-            <motion.li variants={itemV}>
+          <m.ul key="l1" className={s.mList} variants={listV} initial="hidden" animate="show" exit={{ opacity: 0, x: -30 }}>
+            <m.li variants={itemV}>
               <p className={s.mLabel}>{t("nav.exams")}</p>
-            </motion.li>
+            </m.li>
             {nav.categories.slice(0, 12).map((c) => (
-              <motion.li key={c._id} variants={itemV}>
+              <m.li key={c._id} variants={itemV}>
                 <button className={s.mItem} onClick={() => setLevel(c._id)}>
                   <Icon name={c.icon} size={18} />
                   <span>
@@ -196,24 +203,24 @@ function MobileMenu({ nav, session, dashHref, onNavigate }: { nav: NavData; sess
                   </span>
                   <ChevronRight size={18} />
                 </button>
-              </motion.li>
+              </m.li>
             ))}
-            <motion.li variants={itemV}>
+            <m.li variants={itemV}>
               <Link href="/exams" className={s.mItem} onClick={onNavigate}>
                 <span>{t("nav.allExams")}</span>
                 <ChevronRight size={18} />
               </Link>
-            </motion.li>
-            <motion.li variants={itemV} className={s.mDivider} />
+            </m.li>
+            <m.li variants={itemV} className={s.mDivider} />
             {LINKS.map((l) => (
-              <motion.li key={l.href} variants={itemV}>
+              <m.li key={l.href} variants={itemV}>
                 <Link href={l.href} className={s.mItem} onClick={onNavigate}>
                   <span>{t(l.k)}</span>
                 </Link>
-              </motion.li>
+              </m.li>
             ))}
-            <motion.li variants={itemV} className={s.mDivider} />
-            <motion.li variants={itemV} className={s.mButtons}>
+            <m.li variants={itemV} className={s.mDivider} />
+            <m.li variants={itemV} className={s.mButtons}>
               <ActivationKeyButton className={buttonClass({ variant: "outline", block: true })} />
               {session ? (
                 <>
@@ -232,34 +239,34 @@ function MobileMenu({ nav, session, dashHref, onNavigate }: { nav: NavData; sess
               <button className={buttonClass({ variant: "ghost", block: true })} onClick={() => setLang(lang === "en" ? "hi" : "en")}>
                 {lang === "en" ? "हिन्दी में देखें" : "View in English"}
               </button>
-            </motion.li>
-          </motion.ul>
+            </m.li>
+          </m.ul>
         ) : (
-          <motion.ul key={cat._id} className={s.mList} variants={listV} initial="hidden" animate="show" exit={{ opacity: 0, x: 30 }}>
-            <motion.li variants={itemV}>
+          <m.ul key={cat._id} className={s.mList} variants={listV} initial="hidden" animate="show" exit={{ opacity: 0, x: 30 }}>
+            <m.li variants={itemV}>
               <button className={s.mBack} onClick={() => setLevel(null)}>
                 <ChevronLeft size={18} /> {t("nav.back")}
               </button>
-            </motion.li>
-            <motion.li variants={itemV}>
+            </m.li>
+            <m.li variants={itemV}>
               <Link href={`/exams/${cat.slug}`} className={cx(s.mItem, s.mStrong)} onClick={onNavigate}>
                 <Icon name={cat.icon} size={18} />
                 <span>
                   <Bi en={cat.name} hi={cat.nameHi} /> · {t("common.viewAll")}
                 </span>
               </Link>
-            </motion.li>
+            </m.li>
             {nav.groups
               .filter((g) => g.category === cat._id)
               .map((g) => (
-                <motion.li key={g._id} variants={itemV}>
+                <m.li key={g._id} variants={itemV}>
                   <Link href={`/exams/${cat.slug}/${g.slug}`} className={s.mItem} onClick={onNavigate}>
                     <span>{g.name}</span>
                     <ChevronRight size={18} />
                   </Link>
-                </motion.li>
+                </m.li>
               ))}
-          </motion.ul>
+          </m.ul>
         )}
       </AnimatePresence>
     </div>

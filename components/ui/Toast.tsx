@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { CheckCircle2, AlertTriangle, Info, X } from "lucide-react";
 import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
 import s from "./Toast.module.css";
@@ -29,7 +29,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           {items.map((t) => {
             const I = IconFor[t.kind];
             return (
-              <motion.div
+              <m.div
                 key={t.id}
                 layout
                 className={`${s.toast} ${s[t.kind]}`}
@@ -42,7 +42,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
                 <button onClick={() => dismiss(t.id)} aria-label="Dismiss notification" className={s.close}>
                   <X size={16} />
                 </button>
-              </motion.div>
+              </m.div>
             );
           })}
         </AnimatePresence>

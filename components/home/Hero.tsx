@@ -1,15 +1,14 @@
-import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { T } from "@/components/providers/Providers";
 import { buttonClass } from "@/components/ui/Button";
 import { ExamSearch } from "@/components/layout/ExamSearch";
-import type { NavExam } from "@/lib/data";
+import { SvgIcon } from "@/lib/icons";
 import s from "./Hero.module.css";
 
 type Slide = { heading?: string; subheading?: string; ctaLabel?: string; ctaLink?: string; image?: string };
 
-export function Hero({ slide, tagline, motto, exams }: { slide?: Slide; tagline: string; motto: string; exams: NavExam[] }) {
+export function Hero({ slide, tagline, motto }: { slide?: Slide; tagline: string; motto: string }) {
   const words = motto.split(/\s*[·|•]\s*/).filter(Boolean);
   return (
     <section className={s.hero} aria-labelledby="hero-title">
@@ -21,14 +20,14 @@ export function Hero({ slide, tagline, motto, exams }: { slide?: Slide; tagline:
           </h1>
           {slide?.subheading && <p className={s.sub}>{slide.subheading}</p>}
           <div className={s.search}>
-            <ExamSearch exams={exams} variant="glass" />
+            <ExamSearch variant="glass" />
           </div>
           <div className={s.ctas}>
             <Link href={slide?.ctaLink || "/exam/afcat"} className={buttonClass({ size: "lg" })}>
               {slide?.ctaLabel || <T k="hero.startMock" />}
             </Link>
             <Link href="/exams" className={buttonClass({ variant: "onDark", size: "lg" })}>
-              <T k="hero.explore" /> <ArrowRight size={18} />
+              <T k="hero.explore" /> <SvgIcon name="ArrowRight" size={18} />
             </Link>
           </div>
           <p className={s.motto}>

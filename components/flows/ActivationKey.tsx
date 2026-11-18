@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { CheckCircle2, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -67,16 +67,16 @@ export function ActivationKeyModal({ open, onClose }: { open: boolean; onClose: 
           </Link>
         </div>
       ) : done ? (
-        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} style={{ display: "grid", gap: 16, justifyItems: "center", textAlign: "center" }}>
-          <motion.span initial={{ scale: 0, rotate: -40 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.1 }} style={{ color: "var(--color-success)" }}>
+        <m.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} style={{ display: "grid", gap: 16, justifyItems: "center", textAlign: "center" }}>
+          <m.span initial={{ scale: 0, rotate: -40 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring", stiffness: 260, damping: 14, delay: 0.1 }} style={{ color: "var(--color-success)" }}>
             <CheckCircle2 size={64} strokeWidth={1.5} />
-          </motion.span>
+          </m.span>
           <h3 style={{ fontSize: "var(--fs-lg)" }}>Unlocked</h3>
           <p style={{ color: "var(--color-muted)" }}>{done.message}</p>
           <Link href={done.href} className={buttonClass({ block: true })} onClick={close}>
             Go to my content
           </Link>
-        </motion.div>
+        </m.div>
       ) : (
         <form onSubmit={submit} style={{ display: "grid", gap: 16 }}>
           <p style={{ color: "var(--color-muted)", fontSize: "var(--fs-sm)" }}>Activation keys come with printed books and partner offers. Each key works once.</p>

@@ -1,5 +1,5 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { Check, ClipboardList, Lock, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -44,7 +44,7 @@ export function ExamSubNav({ sections }: { sections: { id: string; k: DictKey }[
         {sections.map((x) => (
           <a key={x.id} href={`#${x.id}`} className={cx(s.subLink, active === x.id && s.subActive)} aria-current={active === x.id ? "true" : undefined}>
             {t(x.k)}
-            {active === x.id && <motion.span layoutId="subnav-ind" className={s.subInd} />}
+            {active === x.id && <m.span layoutId="subnav-ind" className={s.subInd} />}
           </a>
         ))}
       </div>
@@ -76,7 +76,7 @@ export function ExamTests({ examId, examName, tests, products }: { examId: strin
       <Tabs tabs={TYPES.map((x) => ({ id: x.id, label: t(x.k), count: tests.filter((tt) => tt.type === x.id).length }))} value={tab} onChange={setTab} />
       <div id={`panel-${tab}`} role="tabpanel" aria-labelledby={`tab-${tab}`} className={s.tabPanel}>
         <AnimatePresence mode="wait">
-          <motion.div key={tab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }}>
+          <m.div key={tab} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.22 }}>
             {list.length === 0 ? (
               <EmptyState icon={<ClipboardList size={28} />} title="Nothing here yet" text={t("exam.empty")} />
             ) : states === null ? (
@@ -88,13 +88,13 @@ export function ExamTests({ examId, examName, tests, products }: { examId: strin
             ) : (
               <div className={s.testGrid}>
                 {list.map((x, i) => (
-                  <motion.div key={x._id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.04 }} style={{ display: "flex" }}>
+                  <m.div key={x._id} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 8) * 0.04 }} style={{ display: "flex" }}>
                     <TestCard test={x} state={states[x._id]} onUnlock={() => setUnlock(x)} />
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
             )}
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
