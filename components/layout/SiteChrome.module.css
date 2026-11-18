@@ -1,0 +1,146 @@
+.ann {
+  overflow: hidden;
+  background: var(--color-primary);
+  color: var(--color-on-dark);
+  font-size: var(--fs-sm);
+}
+.annInner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: 42px;
+}
+.annIcon {
+  flex-shrink: 0;
+  color: var(--color-accent);
+}
+.annText {
+  flex: 1;
+  padding-block: 8px;
+  line-height: 1.4;
+}
+.annText u {
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 3px;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.annClose {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  color: var(--color-on-dark-muted);
+}
+.annClose:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.wa {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: var(--z-sticky);
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4);
+  transition: transform var(--dur) var(--ease-out);
+}
+.wa:hover {
+  transform: scale(1.08);
+}
+.waPulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: pulse 2.4s var(--ease-out) infinite;
+}
+@keyframes pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+/* exam pages have a mobile bottom CTA bar; lift the button above it */
+:global(body:has([data-bottom-bar])) .wa {
+  bottom: 96px;
+}
+@media (min-width: 1024px) {
+  :global(body:has([data-bottom-bar])) .wa {
+    bottom: 20px;
+  }
+}
+
+.news {
+  display: grid;
+  gap: var(--sp-3);
+}
+.newsLabel {
+  font-weight: 600;
+  color: #fff;
+}
+.newsRow {
+  display: flex;
+  gap: 6px;
+  padding: 5px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.newsRow:focus-within {
+  border-color: var(--color-accent);
+}
+.newsRow input {
+  flex: 1;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 var(--sp-3);
+  background: transparent;
+  border: 0;
+  color: #fff;
+}
+.newsRow input::placeholder {
+  color: var(--color-on-dark-muted);
+}
+.newsRow input:focus {
+  outline: none;
+}
+.newsRow button {
+  padding: 0 var(--sp-4);
+  border-radius: 9px;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.langSwitch {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.langSwitch button {
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-on-dark-muted);
+}
+.langSwitch button[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}

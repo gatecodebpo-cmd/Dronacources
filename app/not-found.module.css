@@ -1,0 +1,103 @@
+.wrap {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--color-bg);
+  padding: var(--sp-5) var(--gutter) var(--sp-12);
+}
+.top {
+  max-width: var(--container);
+  width: 100%;
+  margin-inline: auto;
+}
+.card {
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: var(--sp-4);
+  max-width: 520px;
+}
+.scope {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gradient-hero);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.ring,
+.ring2 {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.ring2 {
+  inset: 8%;
+}
+.cross {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)) center / 1px 100% no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)) center / 100% 1px no-repeat;
+}
+/* radar sweep */
+.scope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(245, 165, 36, 0.45), transparent 25%);
+  animation: spin 3.2s linear infinite;
+}
+.blip {
+  position: absolute;
+  top: 28%;
+  left: 64%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  box-shadow: 0 0 12px var(--color-accent);
+  animation: blink 3.2s ease-in-out infinite;
+}
+@keyframes blink {
+  0%,
+  60%,
+  100% {
+    opacity: 0.15;
+  }
+  10% {
+    opacity: 1;
+  }
+}
+.compass {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+.code {
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--color-accent-strong);
+  letter-spacing: 0.1em;
+}
+.card h1 {
+  font-size: var(--fs-2xl);
+}
+.text {
+  color: var(--color-muted);
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-3);
+}

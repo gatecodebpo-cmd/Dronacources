@@ -1,0 +1,84 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--gradient-hero);
+  color: var(--color-on-dark);
+  padding-block: var(--sp-10) var(--sp-12);
+  isolation: isolate;
+}
+.hero[data-compact] {
+  padding-block: var(--sp-8) var(--sp-10);
+}
+.pattern {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(500px 260px at 90% 10%, rgba(245, 165, 36, 0.22), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 40px 40px;
+  mask-image: linear-gradient(180deg, #000 40%, transparent);
+}
+.inner {
+  display: grid;
+  gap: var(--sp-5);
+}
+.titleRow {
+  display: flex;
+  gap: var(--sp-5);
+  align-items: center;
+}
+.icon {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: rgba(245, 165, 36, 0.15);
+  border: 1px solid rgba(245, 165, 36, 0.35);
+  color: var(--color-accent);
+}
+.hero h1 {
+  font-size: var(--fs-2xl);
+  color: #fff;
+  font-weight: 800;
+}
+.sub {
+  margin-top: var(--sp-3);
+  color: var(--color-on-dark-muted);
+  font-size: var(--fs-md);
+  max-width: 62ch;
+}
+.crumbs ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+.crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.crumbs a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.crumbs[data-dark] ol {
+  color: var(--color-on-dark-muted);
+}
+.crumbs[data-dark] [aria-current] {
+  color: #fff;
+}
+@media (max-width: 600px) {
+  .icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+  }
+}

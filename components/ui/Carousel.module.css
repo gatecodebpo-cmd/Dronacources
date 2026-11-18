@@ -1,0 +1,58 @@
+.root {
+  position: relative;
+}
+.track {
+  display: flex;
+  gap: var(--sp-5);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  padding: var(--sp-2) var(--gutter) var(--sp-6);
+  margin-inline: calc(var(--gutter) * -1);
+  scrollbar-width: none;
+  cursor: grab;
+  overscroll-behavior-x: contain;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+.dragging * {
+  pointer-events: none;
+}
+.slide {
+  flex: 0 0 var(--item);
+  scroll-snap-align: start;
+  display: flex;
+}
+.slide > * {
+  flex: 1;
+}
+.controls {
+  display: flex;
+  gap: var(--sp-2);
+  justify-content: flex-end;
+}
+.controls button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-surface);
+  transition: background var(--dur), border-color var(--dur), opacity var(--dur);
+}
+.controls button:hover:not(:disabled) {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}

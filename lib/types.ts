@@ -1,0 +1,66 @@
+// Plain (JSON-safe) shapes passed from server data to card components.
+export type CategoryLite = { _id: string; name: string; nameHi?: string; slug: string; icon?: string; description?: string; examCount?: number };
+export type ExamLite = {
+  _id: string;
+  name: string;
+  slug: string;
+  icon?: string;
+  shortDescription?: string;
+  category?: { name: string; nameHi?: string; slug: string };
+  testCount?: number;
+  quizCount?: number;
+  hasFree?: boolean;
+  isPopular?: boolean;
+};
+export type TestLite = {
+  _id: string;
+  title: string;
+  type: string;
+  totalQuestions: number;
+  totalMarks: number;
+  durationMinutes: number;
+  language: string;
+  negativeMarking?: number;
+  isFree: boolean;
+  price: number;
+  publishDate?: string;
+};
+export type TestState = { unlocked?: boolean; attemptId?: string; bestPct?: number };
+export type ProductLite = {
+  _id: string;
+  type: string;
+  title: string;
+  slug: string;
+  thumbnail?: string;
+  description?: string;
+  includes?: { label: string; count: number }[];
+  mrp?: number;
+  salePrice?: number;
+  validityDays?: number;
+  shelf?: string;
+};
+export type StatLite = { _id: string; label: string; value: number; suffix?: string; icon?: string };
+export type TestimonialLite = { _id: string; name: string; photo?: string; exam: string; rank?: string; quote: string; rating: number };
+export type TopperLite = { _id: string; name: string; photo?: string; exam: string; rank: string; year: number };
+export type PostLite = { _id: string; title: string; slug: string; type: string; category?: string; coverImage?: string; excerpt?: string; publishedAt: string; readMinutes?: number };
+export type SettingsLite = {
+  siteName: string;
+  tagline: string;
+  motto: string;
+  logo?: string;
+  favicon?: string;
+  email?: string;
+  phone?: string;
+  whatsappNumber?: string;
+  address?: string;
+  mapEmbed?: string;
+  workingHours?: string;
+  socials?: Record<string, string>;
+  directorMessage?: { title: string; body: string; name: string; photo?: string };
+  director?: { name?: string; role?: string; photo?: string; story?: string };
+  elibraryCollections?: string[];
+  services?: { title: string; text?: string; href?: string; icon?: string; featured?: boolean }[];
+  colours?: Record<string, string>;
+  seoDefaults?: { title?: string; description?: string; ogImage?: string };
+  footerLinks?: { label: string; href: string }[];
+};

@@ -1,0 +1,213 @@
+.shell {
+  display: grid;
+  min-height: calc(100dvh - 76px);
+}
+@media (min-width: 960px) {
+  .shell {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.formSide {
+  display: grid;
+  place-items: center;
+  padding: var(--sp-10) var(--gutter);
+}
+.formWrap {
+  width: 100%;
+  max-width: 420px;
+  display: grid;
+  gap: var(--sp-5);
+}
+.h1 {
+  font-size: var(--fs-2xl);
+}
+.lead {
+  margin-top: var(--sp-2);
+  color: var(--color-muted);
+}
+.google {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-height: 48px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-surface);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+}
+.google:disabled {
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+.demoTag {
+  position: absolute;
+  right: 12px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(217, 119, 6, 0.14);
+  color: var(--color-warning);
+  font-size: 0.68rem;
+}
+.or {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+.or::before,
+.or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--color-border);
+}
+.form {
+  display: grid;
+  gap: var(--sp-4);
+}
+.formError {
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  background: rgba(220, 38, 38, 0.08);
+  color: var(--color-danger);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.demoCreds {
+  display: grid;
+  gap: 4px;
+  padding: var(--sp-4);
+  border-radius: var(--radius-md);
+  background: var(--color-tint);
+  font-size: var(--fs-xs);
+}
+.demoCreds button {
+  min-height: 36px;
+  text-align: left;
+  color: var(--color-info);
+  font-weight: 500;
+}
+.demoCreds button:hover {
+  text-decoration: underline;
+}
+.switch {
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+.switch a {
+  color: var(--color-info);
+  font-weight: 600;
+}
+
+/* illustration panel */
+.art {
+  position: relative;
+  overflow: hidden;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--sp-10);
+  padding: var(--sp-12) clamp(var(--sp-8), 5vw, var(--sp-16));
+  background: var(--gradient-hero);
+  color: #fff;
+}
+@media (min-width: 960px) {
+  .art {
+    display: flex;
+  }
+}
+.artGrid {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-radial-gradient(circle at 80% 90%, transparent 0 38px, rgba(255, 255, 255, 0.06) 38px 39px);
+}
+.artCopy {
+  position: relative;
+  max-width: 26ch;
+}
+.artMotto {
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: var(--sp-3);
+}
+.artCopy h2 {
+  font-size: var(--fs-2xl);
+}
+.stack {
+  position: relative;
+  height: 280px;
+}
+.card1 {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: min(340px, 90%);
+  padding: var(--sp-5);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+.cardLabel {
+  font-size: var(--fs-sm);
+  color: var(--color-on-dark-muted);
+}
+.scoreRow {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+  margin-top: var(--sp-3);
+}
+.bars {
+  flex: 1;
+  display: grid;
+  gap: 10px;
+}
+.bars span {
+  height: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+.bars i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #4ade80, #16a34a);
+}
+.badge {
+  position: absolute;
+  right: 8%;
+  top: 0;
+  display: grid;
+  padding: var(--sp-4) var(--sp-5);
+  border-radius: var(--radius-lg);
+  background: var(--gradient-gold);
+  color: var(--color-accent-ink);
+  box-shadow: var(--shadow-gold);
+  animation: bob 4s ease-in-out infinite;
+}
+.badge b {
+  font-size: var(--fs-lg);
+}
+.badge span {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.streak {
+  position: absolute;
+  right: 14%;
+  bottom: 10px;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  box-shadow: var(--shadow-lg);
+}

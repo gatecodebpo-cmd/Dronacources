@@ -1,0 +1,13 @@
+node_modules
+.next
+.env*.local
+.env
+public/uploads/*
+!public/uploads/.gitkeep
+*.tsbuildinfo
+next-env.d.ts
+
+# reference material, not code: scraped copy of the current site and third-party homepage sources
+/dronacourses.com/
+/.claude/skills/frontend-design/reference/
+/.claude/settings.local.json
