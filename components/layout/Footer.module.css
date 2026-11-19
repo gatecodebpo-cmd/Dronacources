@@ -8,6 +8,8 @@
 }
 .top {
   display: grid;
+  /* minmax(0,1fr): long rows (newsletter input, email) must not stretch the column past the screen */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--sp-10);
   padding-block: var(--sp-16) var(--sp-12);
 }
@@ -103,4 +105,11 @@
   justify-content: space-between;
   gap: var(--sp-4);
   padding-block: var(--sp-5);
+}
+
+/* phones: keep the last row clear of the floating WhatsApp button */
+@media (max-width: 767px) {
+  .bottomInner {
+    padding-bottom: 96px;
+  }
 }
