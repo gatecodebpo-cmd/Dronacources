@@ -26,7 +26,6 @@
   color: var(--color-muted);
   letter-spacing: 0.01em;
 }
-:global([data-theme="dark"]) .name,
 .logo[data-dark] .name {
   color: #fff;
 }

@@ -120,7 +120,7 @@ await step("admin edit goes live", async () => {
   }
 });
 
-/* ---------- header: lazy nav, search, drawer, theme ---------- */
+/* ---------- header: lazy nav, search, drawer, light-only theme ---------- */
 await step("navigation and search", async () => {
   const d = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   watch(d, "nav");
@@ -136,10 +136,12 @@ await step("navigation and search", async () => {
   await d.getByRole("button", { name: /^Exams/ }).click();
   await d.getByRole("link", { name: "UPSC NDA" }).first().waitFor({ timeout: 15000 });
   check("mega menu loads groups", true);
-  const theme0 = await d.evaluate(() => document.documentElement.dataset.theme);
-  await d.getByRole("button", { name: /Switch to (dark|light) mode/ }).click();
-  const theme1 = await d.evaluate(() => document.documentElement.dataset.theme);
-  check("theme toggle", theme0 !== theme1, `${theme0} → ${theme1}`);
+  const toggles = await d.getByRole("button", { name: /Switch to (dark|light) mode/ }).count();
+  const dp = await browser.newPage({ colorScheme: "dark" });
+  await dp.goto(B + "/", { waitUntil: "networkidle" });
+  const bg = await dp.evaluate(() => getComputedStyle(document.body).backgroundColor);
+  await dp.close();
+  check("light theme only (no toggle, light even when OS is dark)", toggles === 0 && bg === "rgb(247, 248, 251)", `toggles ${toggles}, body ${bg}`);
 
   const m = await browser.newPage({ viewport: { width: 390, height: 844 } });
   watch(m, "drawer");

@@ -103,9 +103,7 @@
 .navActive svg {
   color: var(--color-primary-lighter);
 }
-:global([data-theme="dark"]) .navActive svg {
-  color: var(--color-accent);
-}
+
 .collapsed .navLabel,
 .collapsed .groupLabel {
   display: none;

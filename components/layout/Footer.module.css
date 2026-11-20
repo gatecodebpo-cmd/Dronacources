@@ -3,9 +3,7 @@
   color: var(--color-on-dark-muted);
   font-size: var(--fs-sm);
 }
-:global([data-theme="dark"]) .footer {
-  background: #050b16;
-}
+
 .top {
   display: grid;
   /* minmax(0,1fr): long rows (newsletter input, email) must not stretch the column past the screen */

@@ -9,10 +9,7 @@ const body = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700"],
 const deva = Noto_Sans_Devanagari({ subsets: ["devanagari"], weight: ["400", "500", "600", "700"], variable: "--font-devanagari", display: "swap", preload: false });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#0B1F3A" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A120D" },
-  ],
+  themeColor: "#0B1F3A",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -31,8 +28,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-// Sets data-theme before first paint to avoid a light/dark flash.
-const themeScript = `(function(){try{var t=localStorage.getItem('drona-theme');if(!t){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.dataset.theme=t;if(localStorage.getItem('drona-lang')==='hi')document.documentElement.lang='hi'}catch(e){}})();`;
+// Sets the saved language before first paint (the site is light-only).
+const langScript = `(function(){try{if(localStorage.getItem('drona-lang')==='hi')document.documentElement.lang='hi'}catch(e){}})();`;
 
 const safeColour = (c?: string) => (c && /^#[0-9a-f]{3,8}$/i.test(c) ? c : null);
 
@@ -52,7 +49,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en" className={`${body.variable} ${deva.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: langScript }} />
         {vars && <style dangerouslySetInnerHTML={{ __html: `:root{${vars}}` }} />}
       </head>
       <body suppressHydrationWarning>

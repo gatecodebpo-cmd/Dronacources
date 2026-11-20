@@ -1,14 +1,13 @@
 "use client";
 import {
   Award, Bell, BookOpen, Boxes, ChevronsLeft, ClipboardList, ExternalLink, FileText, FolderTree, GraduationCap, HelpCircle, Image as ImageIcon,
-  Inbox, KeyRound, LayoutDashboard, LogOut, Megaphone, Menu, MessageSquareQuote, Moon, Newspaper, Receipt, Search, Settings, ShieldCheck,
-  ShoppingBag, Sun, Ticket, TrendingUp, UserCog, Users, Zap, type LucideIcon,
+  Inbox, KeyRound, LayoutDashboard, LogOut, Megaphone, Menu, MessageSquareQuote, Newspaper, Receipt, Search, Settings, ShieldCheck,
+  ShoppingBag, Ticket, TrendingUp, UserCog, Users, Zap, type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { useTheme } from "@/components/providers/Providers";
 import { Avatar } from "@/components/ui/Misc";
 import { Drawer } from "@/components/ui/Overlay";
 import { LogoMark } from "@/components/layout/Logo";
@@ -100,7 +99,6 @@ function SideNav({ nav, collapsed }: { nav: NavItem[]; collapsed: boolean }) {
 }
 
 function TopBar({ user, nav, leads, newLeadCount, onMenu }: { user: { name: string; email: string; role: string }; nav: NavItem[]; leads: Lead[]; newLeadCount: number; onMenu: () => void }) {
-  const { theme, toggle } = useTheme();
   const router = useRouter();
   const [q, setQ] = useState("");
   const [menu, setMenu] = useState<null | "bell" | "profile">(null);
@@ -149,9 +147,6 @@ function TopBar({ user, nav, leads, newLeadCount, onMenu }: { user: { name: stri
         <Link href="/" target="_blank" className={s.iconBtn} aria-label="Open public site in a new tab" title="View site">
           <ExternalLink size={19} />
         </Link>
-        <button className={s.iconBtn} onClick={toggle} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}>
-          {theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}
-        </button>
         <div className={s.pop}>
           <button className={s.iconBtn} aria-label={`Notifications: ${newLeadCount} new leads`} aria-expanded={menu === "bell"} onClick={() => setMenu(menu === "bell" ? null : "bell")}>
             <Bell size={19} />
@@ -191,9 +186,6 @@ function TopBar({ user, nav, leads, newLeadCount, onMenu }: { user: { name: stri
           {menu === "profile" && (
             <div className={s.menu} role="menu">
               <p className={s.menuHead}>{user.email}</p>
-              <button className={s.menuItem} role="menuitem" onClick={toggle}>
-                {theme === "dark" ? "Light mode" : "Dark mode"}
-              </button>
               <Link href="/" className={s.menuItem} role="menuitem">
                 View public site
               </Link>

@@ -36,18 +36,11 @@ export function Bi({ en, hi }: { en: string; hi?: string }) {
   return <>{lang === "hi" && hi ? hi : en}</>;
 }
 
-/* ---------------- theme ---------------- */
-type Theme = "light" | "dark";
-const ThemeCtx = createContext<{ theme: Theme; toggle: () => void }>({ theme: "light", toggle: () => {} });
-export const useTheme = () => useContext(ThemeCtx);
-
 export function Providers({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
-  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
     setLangState(readLang());
-    setTheme((document.documentElement.dataset.theme as Theme) || "light");
   }, []);
 
   useEffect(() => {
@@ -61,23 +54,12 @@ export function Providers({ children }: { children: ReactNode }) {
     } catch {}
   };
 
-  const toggle = () => {
-    const next: Theme = theme === "dark" ? "light" : "dark";
-    setTheme(next);
-    document.documentElement.dataset.theme = next;
-    try {
-      localStorage.setItem("drona-theme", next);
-    } catch {}
-  };
-
   return (
     <SessionProvider refetchOnWindowFocus={false} refetchInterval={0}>
       <LazyMotion features={loadMotionFeatures}>
       <MotionConfig reducedMotion="user">
         <LangCtx.Provider value={{ lang, setLang }}>
-          <ThemeCtx.Provider value={{ theme, toggle }}>
-            <ToastProvider>{children}</ToastProvider>
-          </ThemeCtx.Provider>
+          <ToastProvider>{children}</ToastProvider>
         </LangCtx.Provider>
       </MotionConfig>
       </LazyMotion>

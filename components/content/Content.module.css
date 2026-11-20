@@ -350,9 +350,7 @@
   color: var(--color-primary-lighter) !important;
   font-weight: 600;
 }
-:global([data-theme="dark"]) .role {
-  color: #ffc65a !important;
-}
+
 .statsRow {
   display: grid;
   gap: var(--sp-3);

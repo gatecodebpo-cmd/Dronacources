@@ -14,9 +14,7 @@
   font-weight: 600;
   color: var(--color-primary-lighter);
 }
-:global([data-theme="dark"]) .linkMore {
-  color: var(--color-accent);
-}
+
 .linkMore svg {
   transition: transform var(--dur) var(--ease-out);
 }
@@ -231,9 +229,6 @@
   color: var(--color-primary);
   letter-spacing: -0.02em;
 }
-:global([data-theme="dark"]) .stats dd {
-  color: var(--color-accent);
-}
 
 /* ---------- director ---------- */
 .director {
@@ -329,9 +324,6 @@
   color: var(--color-primary-lighter);
   font-weight: 600;
   text-decoration: underline;
-}
-:global([data-theme="dark"]) .faqNote a {
-  color: var(--color-accent);
 }
 
 /* ---------- closing CTA ---------- */

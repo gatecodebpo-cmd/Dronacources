@@ -13,9 +13,7 @@
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   animation: shimmer 1.4s infinite;
 }
-:global([data-theme="dark"]) .skeleton::after {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.06), transparent);
-}
+
 .cardSkel {
   display: grid;
   gap: var(--sp-3);
@@ -141,13 +139,4 @@
   background: rgba(37, 99, 235, 0.1);
   color: var(--color-info);
 }
-:global([data-theme="dark"]) .ib_navy {
-  background: rgba(120, 160, 220, 0.14);
-  color: #a9c4ee;
-}
-:global([data-theme="dark"]) .ib_gold {
-  color: #ffc65a;
-}
-:global([data-theme="dark"]) .ib_olive {
-  color: #b6c78c;
-}
+

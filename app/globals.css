@@ -101,36 +101,6 @@
   color-scheme: light;
 }
 
-/* ---------- dark mode ---------- */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --color-bg: #070f1d;
-    --color-surface: #0f1b2f;
-    --color-surface-2: #142440;
-    --color-tint: #0c172a;
-    --color-text: #e8edf6;
-    --color-muted: #9aa6bb;
-    --color-border: #22324d;
-    --color-border-strong: #2f4366;
-    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --color-bg: #070f1d;
-  --color-surface: #0f1b2f;
-  --color-surface-2: #142440;
-  --color-tint: #0c172a;
-  --color-text: #e8edf6;
-  --color-muted: #9aa6bb;
-  --color-border: #22324d;
-  --color-border-strong: #2f4366;
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
-  color-scheme: dark;
-}
-
 /* ---------- reset ---------- */
 *,
 *::before,

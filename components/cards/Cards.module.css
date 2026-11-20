@@ -322,9 +322,6 @@
   font-weight: 700;
   color: var(--color-primary-light);
 }
-:global([data-theme="dark"]) .rankBig {
-  color: #ffc65a;
-}
 
 /* ---- 9. blog ---- */
 .post {

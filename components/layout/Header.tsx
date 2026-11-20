@@ -1,12 +1,12 @@
 "use client";
 import { AnimatePresence, m } from "framer-motion";
-import { ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, LogOut, Menu, Moon, Sun, UserRound } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, LayoutDashboard, LogOut, Menu, UserRound } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { ActivationKeyButton } from "@/components/flows/ActivationKey";
-import { Bi, useLang, useTheme } from "@/components/providers/Providers";
+import { Bi, useLang } from "@/components/providers/Providers";
 import { buttonClass } from "@/components/ui/Button";
 import { Drawer } from "@/components/ui/Overlay";
 import type { NavData } from "@/lib/data";
@@ -27,7 +27,6 @@ const LINKS = [
 
 export function Header({ tagline, logo }: { tagline: string; logo?: string }) {
   const { t } = useLang();
-  const { theme, toggle } = useTheme();
   const { data: session } = useSession();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -63,9 +62,6 @@ export function Header({ tagline, logo }: { tagline: string; logo?: string }) {
         </nav>
 
         <div className={s.actions}>
-          <button className={s.iconBtn} onClick={toggle} aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"} title={theme === "dark" ? "Light mode" : "Dark mode"}>
-            {theme === "dark" ? <Sun size={19} /> : <Moon size={19} />}
-          </button>
           {session ? (
             <Link href={dashHref} className={cx(buttonClass({ variant: "outline", size: "sm" }), s.desktopOnly)}>
               <LayoutDashboard size={16} /> {t("nav.dashboard")}

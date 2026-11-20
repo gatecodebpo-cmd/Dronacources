@@ -85,7 +85,7 @@ scripts/seed.ts    demo data (scripts/data/* holds questions, exam write-ups and
 ## Tests
 
 - `npm test`: typecheck plus the admin path-helper self-check.
-- `npm run test:e2e`: 32 browser checks against a running site (pages at phone width, free test → result, login, coupon checkout, activation key, dashboard, role protection, admin edit going live, search, menus, theme toggle, right-click rules). Point it at a server with `BASE_URL=http://localhost:3001 npm run test:e2e`. It uses the installed Microsoft Edge (`PW_CHANNEL=chrome` for Chrome).
+- `npm run test:e2e`: 32 browser checks against a running site (pages at phone width, free test → result, login, coupon checkout, activation key, dashboard, role protection, admin edit going live, search, menus, light-only theme, right-click rules). Point it at a server with `BASE_URL=http://localhost:3001 npm run test:e2e`. It uses the installed Microsoft Edge (`PW_CHANNEL=chrome` for Chrome).
 - The e2e run changes demo data (unlocks tests, redeems a key, edits a stat), so run `npm run seed` afterwards.
 
 ---

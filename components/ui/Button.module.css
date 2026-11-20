@@ -61,9 +61,7 @@
 .secondary:hover:not(:disabled) {
   background: var(--color-primary-light);
 }
-:global([data-theme="dark"]) .secondary {
-  background: var(--color-primary-light);
-}
+
 .outline {
   background: var(--color-surface);
   color: var(--color-text);
