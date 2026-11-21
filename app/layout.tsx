@@ -29,7 +29,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 // Sets the saved language before first paint (the site is light-only).
-const langScript = `(function(){try{if(localStorage.getItem('drona-lang')==='hi')document.documentElement.lang='hi'}catch(e){}})();`;
+const langScript = `(function(){document.documentElement.dataset.js='1';try{if(localStorage.getItem('drona-lang')==='hi')document.documentElement.lang='hi'}catch(e){}})();`;
 
 const safeColour = (c?: string) => (c && /^#[0-9a-f]{3,8}$/i.test(c) ? c : null);
 

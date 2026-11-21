@@ -1,14 +1,15 @@
 "use client";
 import { AnimatePresence, m } from "framer-motion";
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import { useId, useState } from "react";
 import s from "./Accordion.module.css";
 
-export function Accordion({ items, defaultOpen = 0 }: { items: { q: string; a: string }[]; defaultOpen?: number | null }) {
+/** variant "joined": one bordered panel with dividers (home page FAQ); "cards": separate cards (exam pages). */
+export function Accordion({ items, defaultOpen = 0, variant = "cards" }: { items: { q: string; a: string }[]; defaultOpen?: number | null; variant?: "cards" | "joined" }) {
   const [open, setOpen] = useState<number | null>(defaultOpen);
   const base = useId();
   return (
-    <div className={s.list}>
+    <div className={variant === "joined" ? `${s.list} ${s.joined}` : s.list}>
       {items.map((it, i) => {
         const isOpen = open === i;
         return (
@@ -23,7 +24,7 @@ export function Accordion({ items, defaultOpen = 0 }: { items: { q: string; a: s
               >
                 <span>{it.q}</span>
                 <span className={s.icon} aria-hidden>
-                  <Plus size={18} />
+                  {variant === "joined" && isOpen ? <Minus size={22} strokeWidth={2.5} /> : <Plus size={variant === "joined" ? 22 : 18} strokeWidth={variant === "joined" ? 2.5 : 2} />}
                 </span>
               </button>
             </h3>

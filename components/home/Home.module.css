@@ -230,100 +230,58 @@
   letter-spacing: -0.02em;
 }
 
-/* ---------- director ---------- */
-.director {
+/* ---------- FAQ (client mockup) ---------- */
+.faqWrap {
+  max-width: 1000px;
   display: grid;
   gap: var(--sp-10);
+}
+.faqTitle {
+  justify-self: center;
+  text-align: center;
+  font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem);
+  font-weight: 800;
+  color: var(--color-primary);
+}
+.faqTitle::after {
+  content: "";
+  display: block;
+  width: 140px;
+  height: 7px;
+  margin: var(--sp-5) auto 0;
+  border-radius: 7px;
+  background: var(--color-accent);
+}
+.faqHelp {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-}
-@media (min-width: 900px) {
-  .director {
-    grid-template-columns: 380px 1fr;
-    gap: var(--sp-16);
-  }
-}
-.director > * {
-  min-width: 0;
-}
-.dirPhoto {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  max-width: 380px;
+  gap: var(--sp-4) var(--sp-5);
+  padding: var(--sp-6) var(--sp-8);
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: var(--color-surface-2);
+  background: #e6edf7;
+  color: var(--color-primary);
 }
-.dirPhoto img {
-  object-fit: cover;
-}
-.dirCopy {
-  display: grid;
-  gap: var(--sp-4);
-  justify-items: start;
-}
-.dirTag {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--color-accent-strong);
-}
-.dirCopy h2 {
-  font-size: var(--fs-2xl);
-}
-.dirRole {
-  margin-top: calc(var(--sp-3) * -1);
-  color: var(--color-muted);
-  font-weight: 500;
-}
-.dirStory {
-  display: grid;
-  gap: var(--sp-3);
-  max-width: 62ch;
-  font-size: var(--fs-md);
-}
-
-/* ---------- letter ---------- */
-.letterWrap {
-  display: grid;
-  gap: var(--sp-6);
-  max-width: 820px;
-}
-.letterWrap h2 {
-  font-size: var(--fs-2xl);
-}
-.letter {
-  display: grid;
-  gap: var(--sp-4);
-  padding-left: var(--sp-6);
-  border-left: 3px solid var(--color-accent);
-  font-size: var(--fs-md);
-  line-height: 1.75;
-}
-.signoff {
+.faqHelp p {
+  flex: 1;
+  font-size: var(--fs-lg);
   font-weight: 700;
 }
-
-/* ---------- FAQ ---------- */
-.faqGrid {
-  display: grid;
-  gap: var(--sp-6);
+.faqContact {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 var(--sp-8);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  transition: background var(--dur), color var(--dur);
 }
-@media (min-width: 1024px) {
-  .faqGrid {
-    grid-template-columns: 0.8fr 1.2fr;
-    align-items: start;
-  }
-}
-.faqGrid > * {
-  min-width: 0;
-}
-.faqNote {
-  margin-top: calc(var(--sp-6) * -1);
-  color: var(--color-muted);
-}
-.faqNote a {
-  color: var(--color-primary-lighter);
-  font-weight: 600;
-  text-decoration: underline;
+.faqContact:hover {
+  background: var(--color-primary);
+  color: #fff;
 }
 
 /* ---------- closing CTA ---------- */
@@ -379,4 +337,137 @@
   .popular > :nth-child(n + 5) {
     display: none;
   }
+}
+
+/* ---------- letter banner (client mockup) ---------- */
+.letterHero {
+  position: relative;
+  overflow: hidden;
+  background: #040a1e;
+  color: #fff;
+}
+.letterGrid {
+  display: grid;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .letterGrid {
+    grid-template-columns: 1.05fr 1fr;
+    min-height: 560px;
+  }
+}
+.letterGrid > * {
+  min-width: 0;
+}
+.letterCopy {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: var(--sp-5);
+  padding-block: var(--sp-16) var(--sp-12);
+}
+/* faint outlined quote mark behind the label */
+.letterMark {
+  position: absolute;
+  left: -0.07em;
+  top: -0.02em;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(16rem, 10rem + 16vw, 30rem);
+  font-weight: 400;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(255, 255, 255, 0.09);
+  pointer-events: none;
+  user-select: none;
+}
+.letterBy {
+  position: relative;
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: #fff;
+}
+.letterCopy h2 {
+  position: relative;
+  font-size: clamp(2.6rem, 1.6rem + 4.2vw, 5rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #fdf6ee;
+  max-width: 11ch;
+}
+.letterSub {
+  position: relative;
+  font-size: var(--fs-md);
+  color: rgba(253, 246, 238, 0.85);
+  max-width: 40ch;
+}
+.letterBtn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  margin-top: var(--sp-3);
+  padding: 0 var(--sp-8);
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  transition: background var(--dur);
+}
+.letterBtn:hover {
+  background: #ffb43a;
+}
+.letterBtn svg {
+  transition: transform var(--dur) var(--ease-out);
+}
+.letterBtn:hover svg {
+  transform: translate(2px, -2px);
+}
+.letterPhoto {
+  position: relative;
+  align-self: end;
+  aspect-ratio: 806 / 852;
+  width: 100%;
+  max-width: 600px;
+  justify-self: end;
+  /* blend the photo's edges into the band */
+  mask-image: linear-gradient(90deg, transparent 0, #000 16%, #000 80%, transparent 100%), linear-gradient(0deg, transparent 0, #000 10%, #000 88%, transparent 100%);
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
+}
+.letterPhoto img {
+  object-fit: cover;
+}
+@media (max-width: 899px) {
+  .letterCopy {
+    padding-bottom: var(--sp-4);
+  }
+  .letterPhoto {
+    justify-self: center;
+    max-width: 420px;
+  }
+}
+.letterStrip {
+  background: #fdf6ee;
+}
+.letterStrip :global(.container) {
+  display: flex;
+  justify-content: flex-end;
+}
+.letterAbout {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 72px;
+  font-size: var(--fs-md);
+  font-weight: 500;
+  color: var(--color-primary);
+}
+.letterAbout svg {
+  transition: transform var(--dur) var(--ease-out);
+}
+.letterAbout:hover svg {
+  transform: translateX(4px);
 }

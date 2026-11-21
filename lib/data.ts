@@ -2,7 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { dbConnect, plain } from "./db";
 import {
-  Announcement, BlogPost, Category, Exam, ExamGroup, FAQ, Faculty, HeroSlide, Page, Product, SiteSettings, Stat, Test,
+  Announcement, BlogPost, Category, Exam, ExamGroup, FAQ, HeroSlide, Page, Product, SiteSettings, Stat, Test,
 } from "@/models";
 import type { CategoryLite, ExamLite, SettingsLite } from "./types";
 
@@ -189,8 +189,3 @@ export async function getPage(slug: string) {
   return plain(await Page.findOne({ slug }).lean());
 }
 
-export async function getAboutData() {
-  await dbConnect();
-  const [faculty, stats, page] = await Promise.all([Faculty.find().lean(), Stat.find().sort({ order: 1 }).lean(), Page.findOne({ slug: "about" }).lean()]);
-  return plain({ faculty, stats, page });
-}

@@ -8,7 +8,7 @@ import { buttonClass } from "@/components/ui/Button";
 import { Carousel } from "@/components/ui/Carousel";
 import { CountUp } from "@/components/ui/Motion";
 import { SectionHead } from "@/components/ui/Misc";
-import { Reveal, Stagger } from "@/components/ui/Reveal";
+import { Stagger } from "@/components/ui/Reveal";
 import { getCategories, getHomeData, getSettings } from "@/lib/data";
 import { Icon, SvgIcon } from "@/lib/icons";
 import { faqLd, JsonLd, orgLd } from "@/lib/seo";
@@ -28,7 +28,8 @@ export default async function HomePage() {
   const services = settings.services ?? [];
   const featured = services.filter((x) => x.featured);
   const more = services.filter((x) => !x.featured);
-  const dir = settings.director;
+  // label without the "[full name – confirm]" placeholder note
+  const dirName = settings.director?.name?.replace(/\s*\[[^\]]*\]\s*$/, "").trim();
   const letter = settings.directorMessage;
   const shelves = settings.elibraryCollections ?? [];
 
@@ -186,56 +187,53 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 5. the people behind Drona */}
-      {dir?.name && (
-        <section className="section" aria-labelledby="director">
-          <div className={`container ${s.director}`}>
-            {dir.photo && (
-              <Reveal className={s.dirPhoto}>
-                <Image src={dir.photo} alt={dir.name} fill sizes="(max-width: 900px) 100vw, 380px" />
-              </Reveal>
-            )}
-            <Reveal delay={0.1} className={s.dirCopy}>
-              <p className={s.dirTag}>{settings.tagline}</p>
-              <h2 id="director">{dir.name}</h2>
-              {dir.role && <p className={s.dirRole}>{dir.role}</p>}
-              <div className={s.dirStory}>
-                {(dir.story ?? "").split(/\n{2,}/).map((p, i) => (
-                  <p key={i}>{p}</p>
-                ))}
-              </div>
-              <Link href="/about" className={buttonClass({ variant: "outline" })}>
-                About Drona <SvgIcon name="ArrowRight" size={18} />
-              </Link>
-            </Reveal>
-          </div>
-        </section>
-      )}
-
+      {/* 5. letter banner (client's design): Major Gaurav + the aspirants' letter, full text on /about */}
       {letter?.body && (
-        <section className={`section ${s.surface}`} aria-labelledby="letter">
-          <div className={`container ${s.letterWrap}`}>
-            <h2 id="letter">{letter.title}</h2>
-            <div className={s.letter}>
-              {letter.body.split(/\n{2,}/).map((p, i) => (
-                <p key={i}>{p}</p>
-              ))}
-              <p className={s.signoff}>{letter.name}</p>
+        <section className={s.letterBand} aria-labelledby="letter-banner">
+          <div className={s.letterHero}>
+            <div className={`container ${s.letterGrid}`}>
+              <div className={s.letterCopy}>
+                <span className={s.letterMark} aria-hidden>
+                  “
+                </span>
+                {dirName && <p className={s.letterBy}>{dirName}</p>}
+                <h2 id="letter-banner">{letter.title}</h2>
+                <p className={s.letterSub}>A personal note on showing up, staying consistent, and believing in yourself.</p>
+                <Link href="/about#letter" className={s.letterBtn}>
+                  Read the letter <SvgIcon name="ArrowUpRight" size={22} strokeWidth={2.25} />
+                </Link>
+              </div>
+              <div className={s.letterPhoto}>
+                <Image src="/brand/director-banner.jpg" alt={dirName || "Director, Drona"} fill sizes="(max-width: 900px) 100vw, 640px" />
+              </div>
             </div>
           </div>
+          {dirName && (
+            <div className={s.letterStrip}>
+              <div className="container">
+                <Link href="/about" className={s.letterAbout}>
+                  About {dirName} <SvgIcon name="ArrowRight" size={20} />
+                </Link>
+              </div>
+            </div>
+          )}
         </section>
       )}
 
       {faqs.length > 0 && (
         <section className="section" aria-labelledby="faq">
-          <div className={`container ${s.faqGrid}`}>
-            <div>
-              <SectionHead title={<span id="faq"><T k="home.faq" /></span>} />
-              <p className={s.faqNote}>
-                Can't find your answer? <Link href="/contact">Contact us</Link>.
-              </p>
+          <div className={`container ${s.faqWrap}`}>
+            <h2 id="faq" className={s.faqTitle}>
+              <T k="home.faq" />
+            </h2>
+            <Accordion items={faqs} variant="joined" />
+            <div className={s.faqHelp}>
+              <SvgIcon name="MessageSquareText" size={40} strokeWidth={1.75} />
+              <p>Can't find your answer?</p>
+              <Link href="/contact" className={s.faqContact}>
+                Contact us <SvgIcon name="ArrowRight" size={20} strokeWidth={2.25} />
+              </Link>
             </div>
-            <Accordion items={faqs} />
           </div>
         </section>
       )}

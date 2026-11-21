@@ -10,7 +10,7 @@ const PICKABLE = [
 ];
 /** Fixed UI icons used by server-rendered cards, footer and home sections. */
 const UI = [
-  "ArrowRight", "CalendarDays", "Check", "CheckCircle2", "Clock", "FileQuestion", "Flame", "Lock", "Quote", "RotateCcw",
+  "ArrowRight", "ArrowUpRight", "CalendarDays", "MessageSquareText", "Check", "CheckCircle2", "Clock", "FileQuestion", "Flame", "Lock", "Quote", "RotateCcw",
   "Mail", "MapPin", "Phone", "Send", "Facebook", "Instagram", "Linkedin", "Youtube",
 ];
 
